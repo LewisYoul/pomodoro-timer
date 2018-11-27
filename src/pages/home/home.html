@@ -1,0 +1,41 @@
+<ion-content padding text-center class="bg-style">
+  <div class="timer">
+    <h1>{{ formattedTime() }}</h1>
+  </div>
+  <ion-grid no-padding>
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <button ion-button float-left outline icon-start color="dark" [ngStyle]="clicked('pomodoro')" (click)="getConfigFor('pomodoro')" class="type buttonz">
+          <ion-icon name="timer"></ion-icon>
+          Pomo<br>doro
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button outline icon-start color="dark" [ngStyle]="clicked('short-break')" (click)="getConfigFor('shortBreak')" class="type buttonz">
+            <ion-icon name="body"></ion-icon>
+          Short<br>Break
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button float-right outline icon-start color="dark" [ngStyle]="clicked('long-break')" (click)="getConfigFor('longBreak')" class="type buttonz">
+            <ion-icon name="cafe"></ion-icon>
+          Long<br>Break
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="action-buttons">
+    <button left ion-button icon-start outline block color="danger" *ngIf="!isTiming" (click)="startTimer()">
+        <ion-icon name="play"></ion-icon>
+      Start
+    </button>
+    <button ion-button icon-start outline block color="danger" *ngIf="isTiming && time > 0" (click)="stopTimer($event)">
+      <ion-icon name="pause"></ion-icon>
+      Pause
+    </button>
+    <button ion-button icon-start outline block color="danger" *ngIf="isTiming && time <= 0" (click)="resetTimer()">
+      <ion-icon name="refresh"></ion-icon>
+      Reset
+    </button>
+  </div>
+</ion-content>

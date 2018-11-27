@@ -17,6 +17,7 @@ export class MyApp {
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     // used for an example of ngFor and navigation
     this.pages = [
+      { title: 'Home', component: 'HomePage' },
       { title: 'Page One', component: 'Page1' },
       { title: 'Page Two', component: 'Page2' }
     ];

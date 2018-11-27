@@ -1,0 +1,36 @@
+page-home {
+  ion-content.bg-style {
+    background: white;
+  }
+
+  // .buttonz {
+  //   position: absolute;
+  //   bottom: 30px;
+  // }
+
+  ion-icon {
+    padding-right: 8px !important;
+  }
+
+  ion-grid {
+    margin-top: 9vh;
+  }
+
+  button.type {
+    font-size: 12px;
+  }
+
+  div.timer {
+    margin-top: 14vh;
+  }
+
+  h1 {
+    font-size: 100px;
+    color: color($colors, dark);
+  }
+
+  div.action-buttons {
+    margin-top: 2vh;
+  }
+
+}
