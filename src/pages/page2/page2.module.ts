@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-
 import { Page2 } from './page2';
 
 @NgModule({
