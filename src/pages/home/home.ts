@@ -43,8 +43,7 @@ export class HomePage {
     }
   }
 
-  stopTimer(event) {
-    event.preventDefault()
+  stopTimer() {
     clearInterval(this.countdownTimer);
     this.isTiming = false;
   }
@@ -59,17 +58,18 @@ export class HomePage {
   }
 
   formattedSeconds() {
-    const seconds = this.time.seconds().toString()
+    const seconds = this.time.seconds().toString();
 
     if (seconds.length < 2) {
-      return `0${seconds}`
+      return `0${seconds}`;
     } else {
-      return seconds
+      return seconds;
     }
   }
 
   getConfigFor(timerType) {
-    this.timerType = this.timerConfig.configFor(timerType)
+    this.stopTimer();
+    this.timerType = this.timerConfig.configFor(timerType);
     this.time = this.timerType['time'].clone();
   }
 

@@ -13,6 +13,8 @@ export class SmartAudioMock {
   preload(name, location) {
 
   }
+
+  play(alarm) {}
 }
 
 export class TimerConfigProviderMock {
@@ -53,6 +55,56 @@ describe('HomePage', () => {
     expect(component).toBeDefined()
   });
 
+  describe('#startTimer', () => {
+    let initialDuration = moment.duration(5, 'seconds');
+
+    beforeEach(function() {
+      jasmine.clock().uninstall();
+      jasmine.clock().install();
+    });
+  
+    afterEach(function() {
+      jasmine.clock().uninstall();
+    });
+
+    it('sets this.isTiming to true', () => {
+      component.startTimer()
+      
+      expect(component.isTiming).toBe(true)
+    });
+    
+    it("when 0 seconds have passed it doesn't reduce the duration", () => {
+      component.time = initialDuration
+      component.startTimer()
+
+      expect(component.time).toEqual(initialDuration)
+    });
+
+    it('when 1 second has passed it reduces the duration by 1 second', () => {
+      component.time = initialDuration;
+      component.startTimer();
+
+      jasmine.clock().tick(1000)
+
+      expect(component.time).toEqual(initialDuration.subtract(1, 'second'))
+    });
+
+    it('when the duration of the timer reaches zero it plays the alarm', () => {
+      const smartAudio = fixture.debugElement.injector.get(SmartAudio);
+      spyOn(smartAudio, 'play')
+
+      component.time = initialDuration;
+      component.startTimer();
+
+      for (let i = 1; i <= 5; i++) {
+        jasmine.clock().tick(1000);
+        console.log('timeee', component.time)
+      }
+
+      expect(smartAudio.play).toHaveBeenCalledWith('alarm')
+    });
+  });
+
   describe('#getConfigFor', () => {
     let timerConfig;
     const mockDuration = moment.duration(5, 'seconds');
@@ -61,6 +113,10 @@ describe('HomePage', () => {
       timerConfig = fixture.debugElement.injector.get(TimerConfigProvider);
       spyOn(timerConfig, 'configFor').and.returnValue({ time: mockDuration })
       component.getConfigFor('pomodoro')
+    });
+
+    it ('resets this.isTiming to be false', () => {
+      expect(component.isTiming).toBe(false)
     });
 
     it('calls #configFor on the TimerConfigProvider with the passed argument', () => {
